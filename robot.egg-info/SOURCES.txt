@@ -1,8 +1,10 @@
 MANIFEST.in
 robot/__init__.py
-robot/robot.py
+robot/factory.py
 robot.egg-info/PKG-INFO
 robot.egg-info/SOURCES.txt
 robot.egg-info/dependency_links.txt
 robot.egg-info/requires.txt
 robot.egg-info/top_level.txt
+robot/blueprints/__init__.py
+robot/blueprints/robot.py
