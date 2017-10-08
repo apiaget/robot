@@ -13,8 +13,16 @@ pwm = Adafruit_PCA9685.PCA9685()
 servo_1_status = False
 servo_1_position = 150
 
-servo_min = 150  # Min pulse length out of 4096
-servo_max = 600  # Max pulse length out of 4096
+servos = [[],[]]
+servos[0].append(False)
+servos[0].append(150)
+servos[0].append(1)
+servos[1].append(False)
+servos[1].append(150)
+servos[1].append(1)
+
+#servo_min = 150  # Min pulse length out of 4096
+#servo_max = 600  # Max pulse length out of 4096
 pwm.set_pwm_freq(60)
 
 @bp.route('/')
@@ -28,27 +36,35 @@ def index():
 @bp.route('/activate', methods = ['POST'])
 @cross_origin()
 def activate():
-     global servo_1_status
-     servo_1_status = True
      global t1
      t1 = threading.Thread(target = move, args = ())
      t1.start()
+     global servos
+     servos[0][0] = True
+     rotation = request.json['rotation']
+
+     if(rotation == 1 or rotation == -1):
+          servos[0][2] = rotation
+     else:
+          print("faux")
+
      resp = Response(json.dumps(request.json), mimetype='appliaction/json')
      return resp
 
 @bp.route('/stop', methods = ['POST'])
 @cross_origin()
 def stop():
-     global servo_1_status
-     servo_1_status = False
+     global servos
+     servos[0][0] = False
+#     global servo_1_status
+#     servo_1_status = False
      resp = Response(json.dumps(request.json), mimetype='application/json')
      return resp
 
 def move():
-     print(servo_1_status)
-     while servo_1_status:
-          global servo_1_position
-          print(servo_1_position)
-          servo_1_position = servo_1_position + 5
-          pwm.set_pwm(0, 0, servo_1_position)
-          time.sleep(0.2)
+     print(servos[0][0])
+     while servos[0][0]:
+          print(servos[0][1])
+          servos[0][1] = servos[0][1] +  (6 * servos[0][2])
+          pwm.set_pwm(0, 0, servos[0][1])
+          time.sleep(0.1)
