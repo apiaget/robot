@@ -2,6 +2,7 @@ import Adafruit_PCA9685
 import time
 from flask import Blueprint, request, session, g, redirect, url_for, abort, \
      render_template, flash, current_app, jsonify, Response, json
+from flask_cors import CORS, cross_origin
 
 bp = Blueprint('robot', __name__)
 
@@ -17,10 +18,18 @@ def index():
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp
 
-#    return jsonify(
-#        robot="v1"
-#    )
 
+@bp.route('/activate', methods = ['POST', 'OPTIONS'])
+@cross_origin()
+def activate():
+     resp = Response(json.dumps(request.json), mimetype='appliaction/json')
+     return resp
+
+@bp.route('/stop', methods = ['POST'])
+@cross_origin()
+def stop():
+     resp = Response(json.dumps(request.json), mimetype='application/json')
+     return resp
 
 
 #    while True:

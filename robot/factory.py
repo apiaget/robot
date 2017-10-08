@@ -5,7 +5,7 @@ import Adafruit_PCA9685
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash
 from werkzeug.utils import find_modules, import_string
-
+from flask.ext.cors import CORS
 
 app = Flask(__name__) # create the application instance :)
 app.config.from_object(__name__) # load config from this file , robot.py
@@ -15,6 +15,8 @@ app.config.update(dict(
 ))
 
 app.config.from_envvar('ROBOT_SETTINGS', silent=True)
+
+cors = CORS(app)
 
 #register_blueprints(app)
 
