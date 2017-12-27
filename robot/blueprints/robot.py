@@ -17,19 +17,27 @@ SERVO_MAX = 4
 
 current_servo = 0
 
-servos = [[],[]]
+servos = [[],[], []]
 servos[0].append(False) #le servo tourne ?
 servos[0].append(410)   #emplacement de la rotation
 servos[0].append(1)     #sens de rotation
 servos[0].append(160)   #minimum
 servos[0].append(660)   #maximum
-servos[0].append(5)     #servo speed
+servos[0].append(10)    #servo speed
+
 servos[1].append(False)
 servos[1].append(410)
 servos[1].append(1)
-servos[1].append(160)
-servos[1].append(660)
+servos[1].append(330)
+servos[1].append(590)
 servos[1].append(10)
+
+servos[2].append(False)
+servos[2].append(410)
+servos[2].append(1)
+servos[2].append(320)
+servos[2].append(510)
+servos[2].append(10)
 
 #servo_min = 150  # Min pulse length out of 4096
 #servo_max = 600  # Max pulse length out of 4096
